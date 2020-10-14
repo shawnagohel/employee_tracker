@@ -72,6 +72,7 @@ function departmentView() {
     })
 }
 
+
 function employeeView() {
     var sqlStr = "SELECT first_name, last_name, title, salary FROM employee ";
     sqlStr += "LEFT JOIN role ";
@@ -83,6 +84,7 @@ function employeeView() {
         runSearch();
     })
 }
+
 
 function roleView() {
     var sqlStr = "SELECT * FROM role";
@@ -108,4 +110,3 @@ const updateEmployee = () => {
            
     }
     runUpdateSearch();  
-}
