@@ -1,5 +1,6 @@
 var inquirer = require("inquirer");
 var connection = require('./connection');
+const mysql = require("mysql");
 
 //get user input
 const promptUser = (connection) => {
