@@ -108,5 +108,6 @@ const updateEmployee = () => {
                 choices: employeeOptions
             })
            
+        }
+        runUpdateSearch();  
     }
-    runUpdateSearch();  
