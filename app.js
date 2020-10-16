@@ -1,18 +1,18 @@
 const inquirer = require('inquirer');
 const Conn = require('./connection');
 
-//get user input
+//user input
 const promptUser = (connection) => {
 
     return inquirer.prompt([
-        //all options- select one
+        //List of options - user select's one
         {
             type: 'list',
             name: 'viewOption',
             message: 'Please pick one of the following',
             choices: ['View all departments', 'View all roles', 'View all employees', 'View employees by manager','View employees by department','View total salary for a department','Add a department', 'Add a role', 'Add an employee', 'Update employee role','Update employee manager','Am Done!']
         },
-        //Get name of dept - called when add a dept option is given
+        //Add department name
         {
             name: 'dept',
             message: 'Please give the name of the department(required)',
@@ -24,7 +24,7 @@ const promptUser = (connection) => {
             },
             when: (answers) => answers.viewOption === 'Add a department'
         },
-        //Get the name of the role - called when add a role option is selected
+        //Obtain the name of the role
         {
             name: 'nameRole',
             message: 'add the name of the role',
@@ -36,7 +36,7 @@ const promptUser = (connection) => {
             },
             when: (answers) => answers.viewOption === 'Add a role'
         },
-        //Get the salary for the role being added - called when add a role option is selected
+        //Add the salary information
         
         {
             type: 'number',
@@ -44,7 +44,8 @@ const promptUser = (connection) => {
             message: 'What\'s the salary for the role',
             when: (answers) => answers.viewOption === 'Add a role'
         },
-        //Get name of dept of role being added - called when add a role option is selected
+       
+        // Obtain the name of the department 
         
         {
             type: 'list',
@@ -61,10 +62,10 @@ const promptUser = (connection) => {
                   return dept_arr;
             }
         },
-        //Get first name of the employee being added
+        //Obtain the first name of the employee being added
         {
             name: 'empFirstName',
-            message: 'What\'s the employee\'s first name',
+            message: 'Please input the first name of the employee',
             validate: function validFirstName(text){
                 if(text==="" || text===" "){
                     return "Please enter a  valid first name";
@@ -73,10 +74,10 @@ const promptUser = (connection) => {
             },
             when: (answers) => answers.viewOption === 'Add an employee'
         },
-        //Get last name of the employee being added
+        //Obtain the last name of the employee being added
         {
             name: 'empLastName',
-            message: 'Please give the last name of the employee',
+            message: 'Please input the last name of the employee',
             validate: function validLastName(text){
                 if(text==="" || text===" "){
                     return "Please enter a  valid last name";
@@ -85,11 +86,11 @@ const promptUser = (connection) => {
             },
             when: (answers) => answers.viewOption === 'Add an employee'
         },
-        //Get role of employee being addded
+        //Obtain the title of the employee
         {
             type: 'list',
             name: 'empRole',
-            message: 'What\'s the employee\'s role',
+            message: 'What\'s the employee\'s title',
             when: (answers) => answers.viewOption === 'Add an employee' ,
             choices: async function(){
                 let [role,fields] = await connection.execute(`SELECT title FROM role`);
@@ -101,11 +102,11 @@ const promptUser = (connection) => {
                 return role_arr;
           }
         },
-        // Get manager name of employee being added
+        // Add manager
         {
             type: 'list',
             name: 'empManager',
-            message: 'What\'s the employee\'s manager name',
+            message: 'Please input the manager name',
             when: (answers) => answers.viewOption === 'Add an employee',
             choices: async function(answers){
                  
@@ -131,8 +132,8 @@ const promptUser = (connection) => {
         {
             type: 'list',
             name: 'empName',
-            message: 'Which employee do you want to update',
-            when: (answers) => answers.viewOption === 'Update employee role',
+            message: 'What is the name of the employee you wish to update',
+            when: (answers) => answers.viewOption === 'Add an employee',
             choices: async function(answers){
                   let [empName,fields] =  await connection.execute('SELECT first_name, last_name FROM employee');
                   let emp_arr = [];
@@ -148,8 +149,8 @@ const promptUser = (connection) => {
         {
             type: 'list',
             name: 'empUpdRole',
-            message: 'Which is the new role of the employee',
-            when: (answers) => answers.viewOption === 'Update employee role',
+            message: 'What is the new role of the employee',
+            when: (answers) => answers.viewOption === 'Update employee title',
             choices: async function(answers){
                 let [empRole,fields] =  await connection.execute('SELECT title FROM role');
                 let role_arr = [];
