@@ -14,6 +14,7 @@ const promptUser = (connection) => {
         },
         //Add department name
         {
+    
             name: 'dept',
             message: 'Please give the name of the department(required)',
             validate: function validDpt(text){
@@ -24,6 +25,8 @@ const promptUser = (connection) => {
             },
             when: (answers) => answers.viewOption === 'Add a department'
         },
+
+
         //Obtain the name of the role
         {
             name: 'nameRole',
@@ -36,6 +39,8 @@ const promptUser = (connection) => {
             },
             when: (answers) => answers.viewOption === 'Add a role'
         },
+
+
         //Add the salary information
         
         {
@@ -62,6 +67,8 @@ const promptUser = (connection) => {
                   return dept_arr;
             }
         },
+
+        
         //Obtain the first name of the employee being added
         {
             name: 'empFirstName',

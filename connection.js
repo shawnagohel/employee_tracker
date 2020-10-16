@@ -1,31 +1,55 @@
-class Connection{
+
+const mysql = require("mysql2");
+const connection = mysql.createConnection({
+  host: "localhost",
+  // Your username
+  user: "root",
+  // Your password
+  password: "",
+  database: "employees"
+});
+connection.connect();
+
+
+// Setting up connection.query to use promises instead of callbacks
+// This allows us to use the async/await syntax
+connection.query = util.promisify(connection.query);
+module.exports = connection;
+
     constructor (connection){
         this.connection = connection;
     }
+
+    
     //to get all departments
-    async allDept(connection){
+    async function allDept(connection){
         let [dept, dfields] = await connection.execute('SELECT * FROM department');
         console.table(dept);
         return;
     }
+
     //get all roles
-    async allRoles(connection){
+    async function allRoles(connection){
         let [roles, rfields] = await connection.execute('SELECT * FROM role');
         console.table(roles);
         return;
     }
+    
     //get all employees
-    async allEmps(connection){
+    async function allEmps(connection){
         let [emp, efields] = await connection.execute('SELECT * FROM employee');
         console.table(emp);
         return;
     }
+    
     //add a department
-    async addDept(connection,answers){
+    async function addDept(connection,answers){
         let [adddept, deptField] = await connection.execute(`INSERT INTO department (dept_name) VALUES ('${answers.dept}')`);
         console.log(`department table updated with ${answers.dept}`);
         return;
     }
+
+
     //add a role
     async addRole(connection,answers){
         let [roleAdd,roleField] = await connection.execute(`INSERT INTO role (title, salary, dept_id) VALUES ('${answers.nameRole}','${answers.salaryRole}',(SELECT depart_id FROM department WHERE dept_name = '${answers.deptRole}'))`);
@@ -85,3 +109,5 @@ class Connection{
 }
 
 module.exports = Connection;
+
+
