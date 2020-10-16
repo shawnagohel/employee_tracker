@@ -127,7 +127,7 @@ const promptUser = (connection) => {
                  return mgr_arr;
             }
         },
-        //Get name of employee who's role is being updated
+        //update employee
         {
             type: 'list',
             name: 'empName',
@@ -144,7 +144,7 @@ const promptUser = (connection) => {
                   return emp_arr;
             }     
         },
-        //Get new role of employee being updated
+        //Update Role
         {
             type: 'list',
             name: 'empUpdRole',
@@ -161,11 +161,11 @@ const promptUser = (connection) => {
                 return role_arr;
             }
           },
-          //Get name of department for seeing utilized budget
+          //Department name for budget
           {
             type: 'list',
             name: 'deptName',
-            message: 'Please select the department you want to see the utilised budget for',
+            message: 'Please select the department you would like to see the budget for',
             when: (answers) => answers.viewOption === 'View total salary for a department',
             choices: async function(){
                 let [dept,fields] = await connection.execute(`SELECT dept_name FROM department`);
