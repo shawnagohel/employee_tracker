@@ -71,20 +71,9 @@ Design the following database schema containing three tables:
 
 You may want to use a separate file containing functions for performing specific SQL queries you'll need to use. A constructor function or Class could be helpful for organizing these. You may also want to include a `seeds.sql` file to pre-populate your database. This will make the development of individual features much easier.
 
+## Installation Instructions
 
-## Bonus
-
-See if you can add some additional functionality to your application, such as the ability to:
-
-* Update employee managers
-
-* View employees by manager
-
-* View employees by department
-
-* Delete departments, roles, and employees
-
-* View the total utilized budget of a department -- ie the combined salaries of all employees in that department
+npm install inquirer npm install mysql2
 
 
 ## Review
