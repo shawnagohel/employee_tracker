@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
-const Conn = require('./connection');
+const {Connection : Conn} = require('./connection');
+const util = require('util');
 
 //user input
 const promptUser = (connection) => {
@@ -14,7 +15,7 @@ const promptUser = (connection) => {
         },
         //Add department name
         {
-    
+            
             name: 'dept',
             message: 'Please give the name of the department(required)',
             validate: function validDpt(text){
@@ -58,11 +59,11 @@ const promptUser = (connection) => {
             message: 'Please give the name of the dept for the role',
             when: (answers) => answers.viewOption === 'Add a role',
             choices: async function(){
-                  let [dept,fields] = await connection.execute(`SELECT dept_name FROM department`);
+                  let [dept,fields] = await connection.execute(`SELECT name FROM department`);
                   let arr = JSON.parse(JSON.stringify(dept));
                   let dept_arr = [];
                   for(let i=0;i<arr.length;i++){
-                      dept_arr.push(arr[i].dept_name);
+                      dept_arr.push(arr[i].name);
                   }
                   return dept_arr;
             }
@@ -117,7 +118,7 @@ const promptUser = (connection) => {
             when: (answers) => answers.viewOption === 'Add an employee',
             choices: async function(answers){
                  
-                 let [empId, fields] = await connection.execute(`SELECT first_name, last_name FROM employee LEFT JOIN role ON employee.role_id = roleId LEFT JOIN department on role.dept_id = department.depart_id WHERE dept_name = (SELECT dept_name FROM department LEFT JOIN role ON role.dept_id=department.depart_id WHERE role.title='${answers.empRole}');`);
+                 let [empId, fields] = await connection.execute(`SELECT first_name, last_name FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department on role.dept_id = department.depart_id WHERE name = (SELECT name FROM department LEFT JOIN role ON role.dept_id=department.depart_id WHERE role.title='${answers.empRole}');`);
                  console.log(empId);
                  let mgr_arr = [];
                  if(empId.length===0){
@@ -176,11 +177,11 @@ const promptUser = (connection) => {
             message: 'Please select the department you would like to see the budget for',
             when: (answers) => answers.viewOption === 'View total salary for a department',
             choices: async function(){
-                let [dept,fields] = await connection.execute(`SELECT dept_name FROM department`);
+                let [dept,fields] = await connection.execute(`SELECT name FROM department`);
                 let arr = JSON.parse(JSON.stringify(dept));
                 let dept_arr = [];
                 for(let i=0;i<arr.length;i++){
-                    dept_arr.push(arr[i].dept_name);
+                    dept_arr.push(arr[i].name);
                 }
                 return dept_arr;
             }
@@ -225,7 +226,6 @@ const promptUser = (connection) => {
         
          async function displayFunc(){
             switch(answers.viewOption){
-                
                 case 'View all departments':
                    //use connection class 
                    const c1 = new Conn(connection);
@@ -317,14 +317,15 @@ const promptUser = (connection) => {
 
 async function main() {
     // get the client
-    const mysql = require('mysql2/promise.js');
+    const mysql = require('mysql2/promise');
     // create the connection to the database
     try{
-        const connection = await mysql.createConnection({host:'localhost', user: 'shawnagohel', database: 'cms'});
+        // const connection = await mysql.createConnection({host:'localhost', user: 'shawnagohel', database: 'cms'});
+        const connection = await mysql.createConnection({host:'localhost', user: 'root', database: 'cms'});
         promptUser(connection);
     }
     catch(err){
-        throw err;
+        console.log(err);
     } 
 
     return;
