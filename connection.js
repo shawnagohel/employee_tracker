@@ -1,13 +1,13 @@
-const mysql = require("mysql2");
-const connection = mysql.createConnection({
-  host: "localhost",
-  // Your username
-  user: "root",
-  // Your password
-  password: "",
-  database: "employees"
-});
-connection.connect();
+// const mysql = require("mysql2");
+// const connection = mysql.createConnection({
+//   host: "localhost",
+//   // Your username
+//   user: "root",
+//   // Your password
+//   password: "",
+//   database: "employees"
+// });
+// connection.connect();
 
 
 // Setting up connection.query to use promises instead of callbacks

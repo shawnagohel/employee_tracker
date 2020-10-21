@@ -321,7 +321,7 @@ async function main() {
     // create the connection to the database
     try{
         // const connection = await mysql.createConnection({host:'localhost', user: 'shawnagohel', database: 'cms'});
-        const connection = await mysql.createConnection({host:'localhost', user: 'root', database: 'cms'});
+        const connection = await mysql.createConnection({host:'localhost', user: 'root', password: 'Vivienne218', database: 'CMS'});
         promptUser(connection);
     }
     catch(err){
