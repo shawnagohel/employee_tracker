@@ -283,46 +283,8 @@ const promptUser = (connection) => {
           return dept_arr;
         },
       },
-    //   //Get employee name for updating his/her manager
-    //   {
-    //     type: "list",
-    //     name: "empUpdName",
-    //     message: "Which employee do you want to update",
-    //     when: (answers) => answers.viewOption === "Update employee manager",
-    //     choices: async function (answers) {
-    //       let [empName, fields] = await connection.execute(
-    //         "SELECT first_name, last_name FROM employee"
-    //       );
-    //       let emp_arr = [];
-    //       let arr = JSON.parse(JSON.stringify(empName));
-    //       for (let i = 0; i < arr.length; i++) {
-    //         let name = arr[i].first_name + " " + arr[i].last_name;
-    //         emp_arr.push(name);
-    //       }
-    //       return emp_arr;
-    //     },
-    //   },
-    //   //Get new manager of employee
-    //   {
-    //     type: "list",
-    //     name: "empUpdMgr",
-    //     message: "Who is the new manager of the employee",
-    //     when: (answers) => answers.viewOption === "Update employee manager",
-    //     choices: async function (answers) {
-    //       let [empName, fields] = await connection.execute(
-    //         `SELECT first_name, last_name FROM employee`
-    //       );
-    //       let emp_arr = [];
-    //       let arr = JSON.parse(JSON.stringify(empName));
-
-    //       for (let i = 0; i < arr.length; i++) {
-    //         let name = arr[i].first_name + " " + arr[i].last_name;
-    //         emp_arr.push(name);
-    //       }
-    //       return emp_arr;
-    //     },
-    //   },
     ])
+    
     .then((answers) => {
       async function displayFunc() {
         switch (answers.viewOption) {
