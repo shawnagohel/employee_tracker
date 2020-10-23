@@ -284,7 +284,7 @@ const promptUser = (connection) => {
         },
       },
     ])
-    
+
     .then((answers) => {
       async function displayFunc() {
         switch (answers.viewOption) {
@@ -385,7 +385,7 @@ async function main() {
     const connection = await mysql.createConnection({
       host: "localhost",
       user: "root",
-      password: "Vivienne218",
+      // password: "",
       database: "cms",
     });
     promptUser(connection)
